@@ -17,16 +17,18 @@ carbrand.push(model3)
 carbrand.push(model4)
 carbrand.push(model5)
 carbrand.push(model6)
-let brand=document.forms.carform.elements.Brand
-console.log(brand)
 
+let brand=document.forms.carform.elements.Brand
 let model=document.forms.carform.elements.Model
-console.log(model)
-let modelsoptions = document.querySelectorAll("select[name='Model'] option");
+
+
+
 let brandsoptions = document.querySelectorAll("select[name='Brand'] option");
+let modelsoptions = document.querySelectorAll("select[name='Model'] option");
 brand.addEventListener("change",function (e) {
+    
     e.preventDefault();
-    let modelsoptions = document.querySelectorAll("select[name='Model'] option");
+    
     for (let j = 1; j < modelsoptions.length; j++) {
         modelsoptions[j].remove()
     }
@@ -37,6 +39,7 @@ brand.addEventListener("change",function (e) {
             option.setAttribute("value",carbrand[i].Id)
             option.innerText=carbrand[i].Name
             model.appendChild(option)
+            console.log(option.innerText);
         }
         
     }
@@ -73,16 +76,73 @@ button.addEventListener("click" ,function(e){
             let img = document.createElement("img");
             img.src = reader.result;
             imgdivv.append(img);
+            
         };
         
     });
 })
 let mainbutton = document.querySelector(".Add")
 mainbutton.addEventListener("click",function () {
-    let h=document.querySelector(".cardh1")
-    let p1=document.querySelector(".cardp1")
-    let p2=document.querySelector(".cardp2")
+    let rows=document.querySelector(".custom")
+
+
+    let col=document.createElement("div")
+    col.setAttribute("class", "col-lg-4")
+    rows.appendChild(col)
+
+    let createcard=document.createElement("div")
+    createcard.setAttribute("class", "card")
+    col.appendChild(createcard)
+
+    let imgcard=document.createElement("div")
+    imgcard.setAttribute("class", "imgsection")
+    createcard.appendChild(imgcard)
+
+    let imgcreate=document.createElement("img")
+    imgcreate.setAttribute("class", "cardimg")
+    imgcard.appendChild(imgcreate)
+
+    let textcards=document.createElement("div")
+    textcards.setAttribute("class", "textsection")
+    createcard.appendChild(textcards)
     
-    h.innerHTML=modelsoptions.innerHTML+brandsoptions.innerHTML
+    let createh=document.createElement("h1")
+    createh.setAttribute("class", "cardh1")
     
+    let createp1=document.createElement("p")
+    createp1.setAttribute("class", "cardp1")
+    
+    let createp2=document.createElement("p")
+    createp2.setAttribute("class", "cardp2")
+    
+    let createp3=document.createElement("p")
+    createp3.setAttribute("class", "cardp3")
+    createh.innerText=brand.options[brand.selectedIndex].innerText+" "+ model.options[model.selectedIndex].innerText
+    textcards.appendChild(createh)
+    // let h=document.querySelector(".cardh1")
+    // let p1=document.querySelector(".cardp1")
+    // let p2=document.querySelector(".cardp2")
+    // let p3=document.querySelector(".cardp3")
+    let inputt=document.querySelectorAll("input")
+    
+    for (let i = 0; i < inputt.length; i++) {
+        createp1.innerText="Il: "+ inputt[0].value
+        createp2.innerText="Qiymet: "+ inputt[1].value
+        createp3.innerText=inputt[2].value + "/" + inputt[3].value + "/" + inputt[4].value
+        
+    }
+    
+    textcards.appendChild(createp1)
+    textcards.appendChild(createp2)
+    textcards.appendChild(createp3)
+    
+   
+    let divimg=document.querySelectorAll(".imgdiv img")
+    
+    for (let j = 0; j < divimg.length; j++) {
+        let a=divimg[0].getAttribute("src")
+        
+        imgcreate.setAttribute("src" , a)
+    }
+    imgcard.appendChild(imgcreate)
 })
